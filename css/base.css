@@ -1,0 +1,56 @@
+/* css/base.css */
+:root {
+    --praxis-gruen-hell: #E8F5E9;
+    --praxis-gruen-mittel: #A5D6A7;
+    --praxis-gruen-akzent: #66BB6A;
+    --praxis-gruen-dunkel: #388E3C;
+    --text-color-dark: #212529; /* Bootstrap's default dark text */
+    --text-color-muted: #6c757d; /* Bootstrap's muted text */
+    --text-color-on-accent: #ffffff;
+    --text-color-on-mittel: #1c3b1e;
+    --border-radius-standard: .375rem; /* Bootstrap 5 default */
+    --border-color: #dee2e6; /* Bootstrap's default border color */
+    --shadow-sm: 0 .125rem .25rem rgba(0,0,0,.075);
+    --shadow-standard: 0 .5rem 1rem rgba(0,0,0,.15);
+    --shadow-lg: 0 1rem 3rem rgba(0,0,0,.175);
+}
+
+body {
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"; /* Bootstrap 5 font stack */
+    color: var(--text-color-dark);
+    line-height: 1.6;
+    font-size: 1rem; /* Typically 16px */
+}
+
+body.bg-praxis-hell {
+    background-color: var(--praxis-gruen-hell);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: var(--praxis-gruen-dunkel);
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    font-weight: 500; /* Bootstrap default */
+}
+
+h1 { font-size: 2.0rem; } /* Adjusted sizes */
+h2 { font-size: 1.75rem; }
+h3 { font-size: 1.5rem; }
+h4 { font-size: 1.25rem; }
+h5 { font-size: 1.1rem; }
+h6 { font-size: 1.0rem; }
+
+
+a {
+    color: var(--praxis-gruen-akzent);
+    text-decoration: none;
+}
+a:hover {
+    color: var(--praxis-gruen-dunkel);
+    text-decoration: underline;
+}
+
+hr {
+    border-top: 1px solid var(--border-color);
+    opacity: 0.5;
+}

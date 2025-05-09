@@ -1,0 +1,192 @@
+/* css/calendar.css */
+
+#kalender-bereich {
+    min-height: 70vh;
+    overflow-x: auto;
+    padding-bottom: 1rem;
+    position: relative; /* For current time indicator positioning context */
+}
+
+.resource-column {
+    padding-bottom: 20px;
+    /* border-right: 1px solid var(--border-color); by Bootstrap .border-end */
+}
+.resource-column:last-child {
+    border-right: none !important;
+}
+.resource-column > .resource-title { /* Resource name title in Day view */
+    /* background-color and color set by JS based on resource.color */
+    font-size: 0.9rem;
+    font-weight: 600; /* Bolder resource titles */
+    padding: 0.5rem 0.75rem;
+    text-align: center;
+    border-bottom: 1px solid var(--border-color);
+}
+
+
+/* Time Slots Container (Tagesansicht) */
+.time-slots-container {
+    /* max-height: 65vh; No longer fixed height, let it grow */
+    overflow-y: visible; /* Allow content to overflow if needed */
+    padding-top: 0; /* No extra padding, title handles it */
+    position: relative; /* For appointment absolute positioning if needed later */
+}
+
+.calendar-slot {
+    min-height: 44px; /* Slightly reduced for tighter fit */
+    background-color: rgba(248, 249, 250, 0.3); /* More subtle background */
+    font-size: 0.75rem; /* Smaller time text */
+    color: var(--text-color-muted);
+    transition: background-color 0.15s ease;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start; /* Align content (time and appointments) to top */
+    padding: 3px 5px !important;
+    border-bottom: 1px dotted #e0e0e0; /* Dotted border for slots */
+    position: relative; /* For child absolute positioning */
+}
+.calendar-slot:last-of-type { /* Last slot in a column */
+    border-bottom: 1px solid var(--border-color); /* Solid border for column end */
+}
+.calendar-slot .slot-time {
+    font-weight: 500; /* Normal weight */
+    margin-bottom: 1px;
+    opacity: 0.8;
+}
+.calendar-slot:hover, .calendar-slot.drag-over-active {
+    background-color: var(--praxis-gruen-hell);
+    border-bottom-color: var(--praxis-gruen-mittel);
+}
+
+
+/* Current Time Indicator (Tagesansicht) */
+.current-time-indicator {
+    position: absolute;
+    left: 0; /* Relative to .row or .time-slots-container if that's the parent */
+    right: 0;
+    height: 2px;
+    background-color: var(--praxis-gruen-dunkel);
+    z-index: 5;
+    opacity: 0.9;
+    pointer-events: none;
+    margin-top: -1px; /* Center on the hour/half-hour line */
+}
+.current-time-indicator::before {
+    content: '';
+    position: absolute;
+    left: -4px;
+    top: -3px;
+    width: 8px;
+    height: 8px;
+    background-color: var(--praxis-gruen-dunkel);
+    border-radius: 50%;
+    border: 1px solid #fff;
+    box-shadow: 0 0 3px rgba(0,0,0,0.3);
+}
+
+
+/* Wochenansicht Table */
+.week-view-table {
+    table-layout: fixed; /* Helps with column widths */
+}
+.week-view-table th, .week-view-table td {
+    vertical-align: top;
+    border: 1px solid var(--border-color);
+}
+.week-view-table th.week-view-corner,
+.week-view-table th.resource-title-week { /* Resource name title in Week view */
+    /* background-color and color set by JS */
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 0.5rem 0.5rem !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.week-view-table .week-day-label {
+    font-size: 0.85rem;
+    font-weight: 500;
+    background-color: #f8f9fa !important;
+    padding: 0.5rem 0.25rem !important;
+    text-align: center;
+}
+.week-view-table .week-day-label .small {
+    font-size: 0.7rem;
+    font-weight: 400;
+    display: block;
+}
+.week-view-table .day-cell {
+    min-height: 90px; /* Reduced min height */
+    padding: 4px;
+    background-color: #fff;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+}
+.week-view-table .day-cell:hover, .week-view-table .day-cell.drag-over-active {
+    background-color: var(--praxis-gruen-hell);
+}
+.week-view-table .day-cell .termin-karte {
+    font-size: 0.7rem; /* Smaller cards in week view */
+}
+
+
+/* Monatsansicht Table */
+.month-view-table {
+    table-layout: fixed;
+}
+.month-view-table th, .month-view-table td {
+    vertical-align: top;
+    height: 90px; /* Reduced height */
+    border: 1px solid #f0f0f0; /* Lighter grid lines */
+    padding: 2px;
+    font-size: 0.75rem;
+}
+.month-view-table th.bg-light { /* Day name headers (Mo, Di, etc.) */
+    font-weight: 500;
+    font-size: 0.8rem;
+    padding: 0.4rem 0.25rem;
+}
+.month-view-table .day-number {
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-align: left;
+    padding: 2px 3px;
+    display: block;
+    background-color: #fdfdfd;
+    border-bottom: 1px solid #f0f0f0;
+    margin: -2px -2px 2px -2px;
+    color: var(--text-color-dark);
+}
+.month-view-table .day-cell {
+    overflow-y: auto; /* Scroll if too many appointments */
+    background-color: #fff;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+}
+.month-view-table .day-cell:hover, .month-view-table .day-cell.drag-over-active {
+     background-color: var(--praxis-gruen-hell);
+}
+.month-view-table .other-month {
+    background-color: #f8f9fa !important;
+}
+.month-view-table .other-month .day-number {
+    color: var(--text-color-muted);
+    opacity: 0.7;
+    background-color: transparent;
+    border-bottom: none;
+}
+.month-view-table .termin-karte {
+    font-size: 0.6rem; /* Very small cards */
+    padding: 0.15rem 0.25rem;
+    background-color: var(--praxis-gruen-hell);
+    border-color: var(--praxis-gruen-mittel);
+    box-shadow: none; /* No shadow for tiny cards */
+}
+.month-view-table .termin-karte .card-title {
+    font-size: 0.55rem;
+}
+.month-view-table .termin-karte .termin-actions {
+    display: none; /* Hide actions in month view */
+}

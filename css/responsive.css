@@ -1,0 +1,136 @@
+/* css/responsive.css */
+
+@media (max-width: 991.98px) { /* Bootstrap lg breakpoint */
+    #dashboard-content .navbar-brand {
+        font-size: 1.1rem; /* Slightly smaller brand */
+    }
+    #dashboard-content .navbar-nav .nav-link.btn-link {
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+        font-size: 0.9rem;
+    }
+    #dashboard-content .navbar-collapse .d-flex.align-items-center {
+        width: 100%;
+        justify-content: space-between !important;
+        margin-top: 0.75rem;
+        padding-top: 0.5rem;
+        border-top: 1px solid var(--border-color);
+    }
+    #quick-stats-area {
+        justify-content: flex-start !important; /* Stack on left on smaller screens */
+        margin-top: 0.5rem;
+    }
+    #quick-stats-area span {
+        display: block; /* Stack stat items */
+        margin-left: 0 !important;
+        margin-bottom: 0.25rem;
+    }
+}
+
+
+@media (max-width: 767.98px) { /* Bootstrap md breakpoint */
+    body {
+        font-size: 0.95rem; /* Slightly smaller base font for mobile */
+    }
+    h1 { font-size: 1.75rem; }
+    h2 { font-size: 1.5rem; }
+    h3 { font-size: 1.3rem; }
+    h4 { font-size: 1.15rem; }
+
+    #dashboard-content .navbar-nav {
+        width: 100%;
+        text-align: center;
+    }
+     #dashboard-content .navbar-nav .nav-item {
+        margin-bottom: 0.25rem; /* Tighter spacing */
+    }
+    #dashboard-content .navbar-collapse .d-flex.align-items-center {
+        flex-direction: column;
+        align-items: stretch !important;
+    }
+    #dashboard-content .navbar-collapse .d-flex.align-items-center .btn,
+    #dashboard-content .navbar-collapse .d-flex.align-items-center button { /* Includes nav buttons */
+        margin-bottom: 0.5rem;
+        width: 100%;
+    }
+    #dashboard-content .navbar-collapse .d-flex.align-items-center .me-2,
+    #dashboard-content .navbar-collapse .d-flex.align-items-center .me-3 {
+        margin-right: 0 !important;
+    }
+
+    #dynamic-date-header {
+        text-align: center;
+        margin-bottom: 0.5rem; /* Space below date header */
+    }
+    #quick-stats-area {
+        justify-content: center !important;
+        flex-wrap: wrap; /* Allow stats to wrap */
+        gap: 0.5rem 1rem !important; /* Adjust gap */
+    }
+    #quick-stats-area span {
+        display: inline-block; /* Allow side-by-side if space */
+        margin-bottom: 0;
+    }
+
+
+    .resource-column {
+        min-width: 260px; /* Slightly less min-width */
+        margin-bottom: 1rem;
+        border-right: none !important;
+        border-bottom: 1px solid var(--border-color);
+    }
+     .resource-column:last-child {
+        border-bottom: none;
+    }
+    #kalender-bereich .row { /* For Tagesansicht */
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding-bottom: 0.5rem; /* For scrollbar */
+    }
+    .time-slots-container {
+        max-height: 60vh;
+    }
+
+    .week-view-table, .month-view-table {
+        font-size: 0.75rem;
+    }
+    .week-view-table th, .week-view-table td,
+    .month-view-table th, .month-view-table td {
+        min-width: 80px;
+        padding: 2px;
+        font-size: 0.7rem;
+    }
+    .week-view-table .week-day-label {
+        font-size: 0.75rem;
+    }
+    .week-view-table .week-day-label .small {
+        font-size: 0.65rem;
+    }
+
+     .month-view-table .day-cell {
+        height: 80px;
+    }
+    .month-view-table .termin-karte,
+    .week-view-table .termin-karte {
+        max-width: 95%;
+        font-size: 0.6rem; /* Even smaller on mobile */
+    }
+    .month-view-table .termin-karte .card-title,
+    .week-view-table .termin-karte .card-title {
+        font-size: 0.55rem;
+    }
+
+
+    /* Modal on small screens */
+    #neuerTerminModal .modal-dialog {
+        margin: 0.5rem;
+        max-width: calc(100% - 1rem);
+    }
+    #neuerTerminModal .modal-body {
+        padding: 1rem; /* Less padding on mobile */
+    }
+    #neuerTerminModal .modal-footer .btn {
+        min-width: 80px;
+        font-size: 0.9rem;
+    }
+}

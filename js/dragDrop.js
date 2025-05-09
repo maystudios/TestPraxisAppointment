@@ -1,10 +1,11 @@
 // js/dragDrop.js
-import { updateAppointment } from './store.js';
+import { updateAppointment as updateStoreAppointment, store, getCurrentDisplayDate, getDashboardViewType } from './store.js'; // Added store functions
 import { renderCalendar } from './calendarView.js'; // To re-render after drop
 
-let draggedItem = null; // The appointment card being dragged
+let draggedItem = null;
 let originalResource = null;
-let originalTime = null; // Or other original properties
+let originalTime = null;
+let originalDateString = null; // Store as YYYY-MM-DD string
 
 function attachDragDropEventListeners(element) {
     element.addEventListener('dragstart', handleDragStart);
@@ -21,20 +22,20 @@ function makeDroppable(element) {
 function handleDragStart(e) {
     draggedItem = this;
     originalResource = this.dataset.resource;
-    originalTime = this.dataset.time; // Assuming time is a data attribute on the card
+    originalTime = this.dataset.time;
+    originalDateString = this.dataset.date; // This is already YYYY-MM-DD from createAppointmentElement
 
     setTimeout(() => this.classList.add('dragging'), 0);
     e.dataTransfer.effectAllowed = 'move';
-    e.dataTransfer.setData('text/plain', this.id); // id of the appointment
+    e.dataTransfer.setData('text/plain', this.id);
 }
 
 function handleDragEnd() {
-    if (draggedItem) { // Check if draggedItem is not null
-      draggedItem.classList.remove('dragging');
-    }
+    if (draggedItem) draggedItem.classList.remove('dragging');
     draggedItem = null;
     originalResource = null;
     originalTime = null;
+    originalDateString = null;
 }
 
 function handleDragOver(e) {
@@ -44,57 +45,51 @@ function handleDragOver(e) {
 
 function handleDragEnter(e) {
     e.preventDefault();
-    // Add visual cue to drop target, e.g., highlight
-    if (this.classList.contains('calendar-slot') || this.classList.contains('resource-column')) {
+    if (this.classList.contains('calendar-slot') || this.classList.contains('resource-column') || this.classList.contains('day-cell')) {
         this.classList.add('drag-over-active');
     }
 }
 
 function handleDragLeave(e) {
-    // Remove visual cue from drop target
-    if (this.classList.contains('calendar-slot') || this.classList.contains('resource-column')) {
+    if (this.classList.contains('calendar-slot') || this.classList.contains('resource-column') || this.classList.contains('day-cell')) {
         this.classList.remove('drag-over-active');
     }
 }
 
 function handleDrop(e) {
     e.preventDefault();
-    if (draggedItem && (this.classList.contains('calendar-slot') || this.classList.contains('resource-column'))) {
+    if (draggedItem && (this.classList.contains('calendar-slot') || this.classList.contains('resource-column') || this.classList.contains('day-cell'))) {
         this.classList.remove('drag-over-active');
+        
         const appointmentId = draggedItem.id;
-        const targetResource = this.dataset.resource || this.closest('.resource-column')?.dataset.resource;
-        const targetTime = this.dataset.time; // Time of the slot, if applicable
+        const droppedOnResource = this.dataset.resource || this.closest('.resource-column')?.dataset.resource || this.closest('[data-resource]')?.dataset.resource;
+        const droppedOnTime = this.dataset.time; // From calendar-slot in day view
+        const droppedOnDateString = this.dataset.date; // YYYY-MM-DD string from slot/cell
 
-        if (!targetResource) {
-            console.error("Drop target has no resource defined!");
-            return;
+        if (!droppedOnResource || !droppedOnDateString) {
+            console.error("Drop target missing resource or date string!", this.dataset);
+            handleDragEnd(); return;
         }
 
-        console.log(`Attempting to drop appointment ${appointmentId} to resource ${targetResource} at time ${targetTime || 'any'}`);
-
-        // Mock update: In a real app, update backend, then update store, then re-render.
-        // For now, directly update store and re-render.
-        const success = updateAppointment({
+        const updatedAppointmentData = {
             id: appointmentId,
-            resource: targetResource,
-            time: targetTime || originalTime, // If dropped on column, keep original time or a default
-            // date might also change if dropping on a different day in week/month view
-        });
+            resource: droppedOnResource,
+            time: droppedOnTime || originalTime || '09:00',
+            date: droppedOnDateString, // Use YYYY-MM-DD string
+            duration: parseInt(draggedItem.dataset.duration) || 30
+        };
+        
+        const success = updateStoreAppointment(updatedAppointmentData);
 
         if (success) {
-            // Re-render the calendar to reflect the change
-            // This needs access to the current date/view type from store
-            renderCalendar(new Date(draggedItem.dataset.date || '2025-05-10'), store.dashboardViewType);
+            // The date for re-rendering should be relevant to the current view.
+            // getCurrentDisplayDate() from store will give the currently viewed date, normalized.
+            renderCalendar(getCurrentDisplayDate(), getDashboardViewType());
         } else {
             console.error("Failed to update appointment in store.");
-            // Optionally, revert visual drag if store update fails
         }
     }
-    // Ensure dragging class is removed even if drop is not on a valid target but dragend doesn't fire correctly
-    if (draggedItem) {
-        draggedItem.classList.remove('dragging');
-    }
-    draggedItem = null;
+    handleDragEnd();
 }
 
 export { attachDragDropEventListeners, makeDroppable };

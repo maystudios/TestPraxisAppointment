@@ -1,0 +1,125 @@
+/* css/layout.css */
+
+/* Full viewport height centering for simple pages */
+.min-vh-100.d-flex.flex-column.justify-content-center.align-items-center {
+    min-height: 100vh;
+}
+.min-vh-100.row.justify-content-center.align-items-center { /* For login page structure */
+    min-height: 100vh;
+}
+
+
+/* Navbar Styling (Dashboard) */
+#dashboard-content .navbar {
+    border-bottom: 3px solid var(--praxis-gruen-akzent);
+    background-color: #fff !important;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+}
+
+#dashboard-content .navbar-brand {
+    color: var(--praxis-gruen-akzent) !important;
+    font-weight: 600; 
+}
+#dashboard-content .navbar-brand .bi {
+    font-size: 1.3em; 
+    vertical-align: middle;
+}
+
+
+#dashboard-content .nav-link.btn-link {
+    color: var(--text-color-dark);
+    padding-left: 1rem;
+    padding-right: 1rem;
+    font-weight: 500;
+    border-bottom: 3px solid transparent; 
+    margin-bottom: -3px; 
+    transition: color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+}
+#dashboard-content .nav-link.btn-link:hover,
+#dashboard-content .nav-link.btn-link:focus {
+    color: var(--praxis-gruen-dunkel);
+    text-decoration: none;
+}
+#dashboard-content .nav-link.btn-link.active {
+    color: var(--praxis-gruen-dunkel);
+    font-weight: 700; 
+    border-bottom-color: var(--praxis-gruen-dunkel);
+}
+
+/* User Display in Navbar */
+#dashboard-content #current-user-display {
+    font-size: 0.85rem;
+    color: var(--text-color-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 180px; /* Adjust as needed */
+    display: inline-block; 
+    vertical-align: middle;
+    margin-left: auto; /* Pushes it to the right before the button group on larger screens */
+}
+#dashboard-content #current-user-display .bi {
+    color: var(--praxis-gruen-akzent);
+}
+
+/* Container for date navigation and logout buttons */
+#dashboardNav .d-flex.align-items-center.ms-auto {
+    margin-left: 1rem !important; /* Ensure some space from user display if it's also pushed right */
+}
+
+
+/* Subheader (Dynamic Date and Quick Stats) */
+#dashboard-content .mt-2.mb-3 .row { 
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+#dynamic-date-header {
+    color: var(--praxis-gruen-dunkel);
+    font-weight: 400; 
+}
+#quick-stats-area {
+    font-size: 0.85rem;
+    color: var(--text-color-muted);
+}
+#quick-stats-area .bi {
+    color: var(--praxis-gruen-akzent);
+    margin-right: 0.25rem;
+}
+#quick-stats-area span + span { 
+    margin-left: 1rem;
+}
+
+
+/* General page padding for dashboard content area */
+#dashboard-content .px-md-3 {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+}
+@media (min-width: 768px) {
+    #dashboard-content .px-md-3 {
+        padding-left: 1.5rem !important;
+        padding-right: 1.5rem !important;
+    }
+}
+
+/* Filter and Calendar Area Layout */
+#resource-filter-container { /* Already styled in components.css */
+    border-radius: var(--border-radius-standard);
+}
+#kalender-bereich {
+    border-radius: var(--border-radius-standard);
+}
+#kalender-bereich .initial-load-message { /* Style for the initial loading text */
+    font-size: 1rem;
+    padding: 3rem 1rem;
+}
+
+
+/* Calendar Loading Overlay */
+#calendar-loading-overlay .spinner-border {
+    width: 3rem;
+    height: 3rem;
+    color: var(--praxis-gruen-akzent) !important;
+}

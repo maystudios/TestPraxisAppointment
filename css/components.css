@@ -1,0 +1,225 @@
+/* css/components.css */
+
+/* General Button Styling */
+.btn {
+    border-radius: var(--border-radius-standard);
+    font-weight: 500;
+    padding: .5rem 1rem; /* Bootstrap 5 btn padding */
+    transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, color 0.15s ease-in-out;
+}
+.btn-sm {
+    padding: .25rem .5rem;
+    font-size: .875rem;
+}
+.btn-lg {
+    padding: .75rem 1.5rem;
+    font-size: 1.25rem;
+}
+
+
+.btn-primary {
+    background-color: var(--praxis-gruen-akzent);
+    border-color: var(--praxis-gruen-akzent);
+    color: var(--text-color-on-accent);
+}
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active {
+    background-color: var(--praxis-gruen-dunkel);
+    border-color: var(--praxis-gruen-dunkel);
+    color: var(--text-color-on-accent);
+    box-shadow: 0 0 0 .25rem rgba(102, 187, 106, .5);
+}
+
+.btn-outline-secondary {
+    color: var(--praxis-gruen-dunkel);
+    border-color: var(--praxis-gruen-mittel);
+}
+.btn-outline-secondary:hover {
+    color: #fff;
+    background-color: var(--praxis-gruen-dunkel);
+    border-color: var(--praxis-gruen-dunkel);
+}
+.btn-outline-secondary:focus {
+    box-shadow: 0 0 0 .25rem rgba(165, 214, 167, .5); /* Lighter green focus */
+}
+
+.btn-outline-danger:hover {
+    color: #fff;
+}
+
+
+/* Startseite Content Card */
+#startseite-content {
+    max-width: 600px;
+    box-shadow: var(--shadow-lg);
+}
+#startseite-content .display-4 {
+    color: var(--praxis-gruen-dunkel);
+}
+
+/* Login Card & Form Styling */
+#login-content .card {
+    border: none;
+    box-shadow: var(--shadow-lg);
+}
+#login-content .form-control:focus {
+    border-color: var(--praxis-gruen-akzent);
+    box-shadow: 0 0 0 .25rem rgba(102, 187, 106, .25);
+}
+#login-content .form-control-lg {
+    padding: .75rem 1.25rem;
+    font-size: 1.1rem;
+}
+
+/* Resource Filter Checkboxes & Badges */
+#resource-filter-container .form-check-input {
+    border-width: 2px;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+    cursor: pointer;
+}
+#resource-filter-container .form-check-input:checked {
+     box-shadow: none;
+}
+#resource-filter-container .form-check-input:focus {
+    box-shadow: 0 0 0 .25rem rgba(102, 187, 106, .25);
+}
+#resource-filter-container .badge {
+    font-size: 0.7em;
+    font-weight: 500;
+    padding: .3em .5em; /* Slightly larger badge */
+    vertical-align: middle;
+}
+#resource-filter-container .form-check-label {
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+#resource-filter-container .form-check-inline {
+    padding-left: 0; /* Remove default padding to align custom checkbox better */
+}
+#resource-filter-container .form-check-input[type="checkbox"] { /* Custom checkbox look */
+    margin-right: 0.5em;
+}
+
+
+/* Termin Karte (Appointment Card) */
+.termin-karte {
+    /* background-color set by JS based on resource.color */
+    /* color set by JS based on luminance */
+    border-width: 1px;
+    border-style: solid;
+    /* border-color set by JS */
+    border-radius: var(--border-radius-standard);
+    padding: 0.4rem 0.6rem; /* Slightly more padding */
+    cursor: grab;
+    font-size: 0.8rem; /* Base size for card content */
+    transition: transform 0.1s ease-out, box-shadow 0.1s ease-out, opacity 0.15s ease-out;
+    width: calc(100% - 4px);
+    margin: 2px;
+    box-shadow: var(--shadow-sm);
+    overflow: hidden; /* Prevent content overflow */
+}
+.termin-karte:hover {
+    transform: translateY(-2px) scale(1.01); /* Subtle scale */
+    box-shadow: var(--shadow-standard) !important;
+    z-index: 10;
+}
+.termin-karte.dragging {
+    opacity: 0.75; /* More visible when dragging */
+    border-width: 2px;
+    border-style: dashed;
+    /* border-color set by JS or defaults to --praxis-gruen-dunkel */
+    transform: scale(1.03) rotate(1deg);
+    box-shadow: var(--shadow-lg) !important;
+}
+.termin-karte .badge { /* Patient ID badge */
+    font-size: 0.65rem;
+    padding: 0.15em 0.35em;
+    font-weight: 500;
+}
+.termin-karte .card-title {
+    font-weight: 600; /* Bolder title */
+    font-size: 0.8rem;
+    margin-bottom: 1px !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; /* Add ellipsis for long titles */
+}
+.termin-karte .card-text {
+    font-size: 0.75rem;
+    opacity: 0.9; /* More readable */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.termin-karte .card-text .bi-card-text { /* Notes icon */
+    font-size: 0.9em;
+    margin-left: 0.2em;
+}
+.termin-karte .termin-actions { /* Container for edit/delete buttons */
+    opacity: 0; /* Hidden by default */
+    transition: opacity 0.15s ease-in-out;
+}
+.termin-karte:hover .termin-actions {
+    opacity: 1; /* Show on hover */
+}
+.termin-karte .btn-sm {
+    font-size: 0.75rem; /* Larger action buttons */
+    padding: .15rem .3rem;
+    background-color: rgba(255,255,255,0.3); /* Lighten buttons on colored cards */
+    border: 1px solid rgba(0,0,0,0.05);
+    /* color will be inherited or set based on card background */
+    box-shadow: none;
+}
+.termin-karte .btn-sm:hover {
+    background-color: rgba(255,255,255,0.5);
+    border-color: rgba(0,0,0,0.1);
+}
+
+
+/* Modal Styling (Neuer Termin Dialog) */
+#neuerTerminModal .modal-header {
+    background-color: var(--praxis-gruen-akzent);
+    color: var(--text-color-on-accent);
+    border-bottom: none;
+    padding: 1rem 1.5rem; /* Standard modal padding */
+}
+#neuerTerminModal .modal-header .btn-close {
+    filter: brightness(0) invert(1);
+}
+#neuerTerminModal .modal-title {
+    color: var(--text-color-on-accent);
+    font-size: 1.25rem;
+}
+#neuerTerminModal .modal-body {
+    padding: 1.5rem;
+}
+#neuerTerminModal .form-label {
+    font-weight: 500;
+    margin-bottom: 0.3rem;
+    font-size: 0.9rem;
+}
+#neuerTerminModal .form-control, #neuerTerminModal .form-select {
+    font-size: 0.9rem;
+    padding: .5rem .75rem; /* Standard form control padding */
+}
+#neuerTerminModal .form-control:focus,
+#neuerTerminModal .form-select:focus {
+    border-color: var(--praxis-gruen-akzent);
+    box-shadow: 0 0 0 .25rem rgba(102, 187, 106, .25);
+}
+#neuerTerminModal .modal-footer {
+    padding: 1rem 1.5rem;
+    border-top: 1px solid var(--border-color);
+}
+#neuerTerminModal .modal-footer .btn {
+    min-width: 100px; /* Give footer buttons some width */
+}
+
+/* Alert styling for empty states */
+#kalender-bereich .alert {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+}
+#kalender-bereich .alert .bi {
+    font-size: 1.2em;
+    margin-right: 0.5em;
+}
