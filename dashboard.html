@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terminplaner - Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="bg-praxis-hell">
+
+    <div id="dashboard-content" class="container-fluid"> <!-- Removed display:none -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#" style="color: var(--praxis-gruen-akzent);">
+                    <i class="bi bi-calendar-check"></i> Terminplaner
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#dashboardNav"
+                    aria-controls="dashboardNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="dashboardNav">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <button class="nav-link btn btn-link" id="ansicht-tag">Tagesansicht</button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link btn btn-link" id="ansicht-woche">Wochenansicht</button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link btn btn-link" id="ansicht-monat">Monatsansicht</button>
+                        </li>
+                    </ul>
+                    <div class="d-flex align-items-center">
+                        <button class="btn btn-outline-secondary me-2" id="prev-day-btn" title="Vorheriger Zeitraum"><i
+                                class="bi bi-chevron-left"></i></button>
+                        <button class="btn btn-outline-secondary me-2" id="today-btn" title="Heute">Heute</button>
+                        <button class="btn btn-outline-secondary me-3" id="next-day-btn" title="Nächster Zeitraum"><i
+                                class="bi bi-chevron-right"></i></button>
+                        <button id="logout-btn" class="btn btn-outline-danger">
+                            <i class="bi bi-box-arrow-right"></i> Logout
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <div class="px-md-3">
+            <div class="bg-light p-3 rounded mb-3 shadow-sm">
+                <h5 class="mb-2">Ressourcen Filter</h5>
+                <div id="resource-filter-container" class="d-flex flex-wrap">
+                    <!-- Filter werden hier per JS generiert -->
+                    <p class="text-muted small">Filter laden...</p>
+                </div>
+            </div>
+
+            <div id="kalender-bereich" class="bg-white p-3 rounded shadow-sm">
+                <p class="text-center text-muted">Kalender wird geladen...</p>
+            </div>
+        </div>
+
+        <!-- Neuer Termin Dialog (Modal) -->
+        <div class="modal fade" id="neuerTerminModal" tabindex="-1" aria-labelledby="neuerTerminModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="neuerTerminModalLabel">Neuer Termin</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" id="appointment-id-input"> <!-- For editing -->
+                        <div class="mb-2">
+                            <label for="neuer-termin-titel" class="form-label">Titel <span
+                                    class="text-danger">*</span></label>
+                            <input type="text" id="neuer-termin-titel" class="form-control" required>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-2">
+                                <label for="neuer-termin-datum" class="form-label">Datum</label>
+                                <input type="date" id="neuer-termin-datum" class="form-control" readonly>
+                            </div>
+                            <div class="col-md-6 mb-2">
+                                <label for="neuer-termin-zeit" class="form-label">Zeit</label>
+                                <input type="time" id="neuer-termin-zeit" class="form-control" readonly>
+                            </div>
+                        </div>
+                        <div class="mb-2">
+                            <label for="neuer-termin-dauer" class="form-label">Dauer (Minuten)</label>
+                            <input type="number" id="neuer-termin-dauer" class="form-control" value="30" step="15"
+                                min="15">
+                        </div>
+                        <div class="mb-3">
+                            <label for="neuer-termin-ressource-select" class="form-label">Ressource</label>
+                            <select id="neuer-termin-ressource-select" class="form-select" disabled>
+                                <!-- Options will be populated by JS -->
+                            </select>
+                            <input type="hidden" id="neuer-termin-ressource-hidden">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                            id="cancel-neuer-termin-btn">Abbrechen</button>
+                        <button type="button" class="btn btn-primary" id="save-neuer-termin-btn">Speichern</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="js/main-dashboard.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,205 @@
+/* Praxis CI Farben */
+:root {
+    --praxis-gruen-hell: #E8F5E9;
+    --praxis-gruen-mittel: #A5D6A7;
+    --praxis-gruen-akzent: #66BB6A;
+    --praxis-gruen-dunkel: #388E3C; /* Ein dunkleres Grün für Hover/Active */
+}
+
+body {
+    font-family: 'Helvetica Neue', Roboto, sans-serif;
+    background-color: var(--praxis-gruen-hell);
+    color: #333;
+}
+
+/* Allgemeine Button Anpassungen */
+.btn {
+    border-radius: .25rem;
+    /* transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out; */
+}
+
+.btn-primary {
+    background-color: var(--praxis-gruen-akzent);
+    border-color: var(--praxis-gruen-akzent);
+}
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active {
+    background-color: var(--praxis-gruen-dunkel);
+    border-color: var(--praxis-gruen-dunkel);
+    box-shadow: 0 0 0 .25rem rgba(102, 187, 106, .5);
+}
+
+/* Startseite & Login View Verbesserungen */
+#startseite-view, #login-view {
+    min-height: 100vh; /* Full viewport height */
+}
+#startseite-view .display-4 { /* Willkommenstext */
+    color: var(--praxis-gruen-dunkel);
+}
+
+#login-view .card {
+    border: none; /* Remove default card border, rely on shadow */
+}
+#login-view .form-control:focus {
+    border-color: var(--praxis-gruen-akzent);
+    box-shadow: 0 0 0 .25rem rgba(102, 187, 106, .25);
+}
+#login-view .form-control-lg {
+    padding: .75rem 1.25rem;
+    font-size: 1.1rem;
+}
+
+
+/* Dashboard Anpassungen */
+#dashboard-view .navbar {
+    border-bottom: 3px solid var(--praxis-gruen-akzent);
+}
+#dashboard-view .nav-link.btn-link:hover,
+#dashboard-view .nav-link.btn-link:focus {
+    color: var(--praxis-gruen-dunkel);
+    text-decoration: none;
+}
+#dashboard-view .nav-link.btn-link.active { /* If we add active state via JS */
+    color: var(--praxis-gruen-dunkel);
+    font-weight: bold;
+    border-bottom: 2px solid var(--praxis-gruen-dunkel);
+}
+
+
+/* Kalender Bereich */
+#kalender-bereich {
+    min-height: 60vh;
+    overflow-x: auto; /* Allow horizontal scroll for wide tables like week view */
+}
+.resource-column {
+    padding-bottom: 20px; 
+}
+.resource-column:last-child {
+    border-right: none;
+}
+.time-slots-container {
+    max-height: 60vh; /* Example max height for time slots */
+    overflow-y: auto; /* Scroll within resource column if many slots */
+}
+.calendar-slot {
+    min-height: 45px; /* Adjusted min-height */
+    background-color: #f8f9fa80; 
+    font-size: 0.8rem; /* Smaller font for slot time */
+    color: #6c757d;
+    transition: background-color 0.2s ease;
+    cursor: pointer;
+    display: flex; /* For aligning time and appointments */
+    flex-direction: column; /* Stack time and appointments */
+    /* justify-content: flex-start; */
+    align-items: flex-start;
+    padding: 4px !important; /* Override bootstrap p-2 for tighter fit */
+}
+.calendar-slot .slot-time {
+    font-weight: bold;
+    margin-bottom: 2px;
+    align-self: flex-start; /* Keep time at the top left */
+}
+.calendar-slot:hover, .calendar-slot.drag-over-active {
+    background-color: var(--praxis-gruen-hell);
+}
+
+.termin-karte {
+    background-color: var(--praxis-gruen-mittel);
+    color: #1c3b1e; /* Darker text on termin cards */
+    border: 1px solid var(--praxis-gruen-akzent);
+    border-radius: .25rem;
+    padding: 0.3rem 0.5rem; /* Adjusted padding */
+    cursor: grab;
+    font-size: 0.85rem; /* Slightly smaller font */
+    transition: transform 0.1s ease-out, box-shadow 0.1s ease-out;
+    width: calc(100% - 4px); /* Occupy slot width better */
+    margin: 2px;
+}
+.termin-karte:hover {
+    transform: translateY(-2px) scale(1.02); /* Added slight scale */
+    box-shadow: 0 .25rem .5rem rgba(0,0,0,.15) !important; 
+}
+.termin-karte.dragging {
+    opacity: 0.6;
+    border: 2px dashed var(--praxis-gruen-dunkel);
+    transform: scale(1.02); /* Consistent scale */
+}
+.termin-karte .card-title {
+    font-weight: bold;
+    font-size: 0.8rem; /* Smaller title in card */
+    margin-bottom: 2px !important;
+}
+.termin-karte .card-text {
+    font-size: 0.75rem; /* Smaller text in card */
+}
+.termin-karte .btn-sm {
+    font-size: 0.7rem; 
+    padding: .1rem .25rem; /* Smaller buttons */
+}
+
+/* Week View Specific */
+.week-view-table th, .week-view-table td {
+    vertical-align: top; /* Align content to the top of cells */
+    min-width: 120px; /* Ensure columns have some width */
+}
+.week-view-table .day-cell {
+    min-height: 100px; /* Min height for day cells */
+    padding: 4px;
+}
+.week-view-table .day-cell .termin-karte {
+    font-size: 0.75rem;
+}
+.week-view-table .day-cell .termin-karte .card-title {
+    font-size: 0.7rem;
+}
+
+
+/* Month View Specific */
+.month-view-table th, .month-view-table td {
+    vertical-align: top;
+    height: 100px; /* Fixed height for month cells can be tricky, consider min-height */
+    min-width: 100px;
+    padding: 2px; /* Reduce padding */
+    font-size: 0.8rem;
+}
+.month-view-table .day-number {
+    font-size: 0.85rem;
+    font-weight: bold;
+    text-align: left;
+    padding: 2px;
+}
+.month-view-table .day-cell { /* General styling for cells in month view */
+     overflow-y: auto; /* Allow scrolling within cell if too many appointments */
+}
+.month-view-table .other-month .day-number {
+    color: #adb5bd; /* Muted color for other month days */
+}
+.month-view-table .termin-karte {
+    font-size: 0.65rem; /* Even smaller for month view */
+    padding: 0.2rem 0.3rem;
+}
+.month-view-table .termin-karte .card-title {
+    font-size: 0.6rem;
+}
+.month-view-table .termin-karte .btn-sm {
+    display: none; /* Hide edit/delete buttons in month view for simplicity or show on hover */
+}
+
+
+/* Responsive Anpassungen */
+@media (max-width: 768px) {
+    /* ... (previous responsive CSS) ... */
+    .time-slots-container {
+        max-height: 50vh; /* Adjust for mobile */
+    }
+    .week-view-table, .month-view-table {
+        font-size: 0.8rem; /* Smaller font for tables on mobile */
+    }
+    .week-view-table th, .week-view-table td,
+    .month-view-table th, .month-view-table td {
+        min-width: 90px; /* Adjust min-width for mobile */
+        padding: 3px;
+    }
+     .month-view-table .day-cell {
+        height: 80px; /* Adjust height for mobile */
+    }
+}
